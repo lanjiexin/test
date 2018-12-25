@@ -11,13 +11,13 @@ class Reservation{
 
 class AbstractTypeBehavior{
 
-    private $under_from_type_list = null;
-    private $exclude_from_type_list = null;
+    public $under_from_type_list = null;
+    public $exclude_from_type_list = null;
 
-    private $under_to_type_list = null;
-    private $exclude_to_type_list = null;
+    public $under_to_type_list = null;
+    public $exclude_to_type_list = null;
 
-    protected $my_action = 'behavior action';
+    public $my_action = 'behavior action';
 
     public function __construct($under_from_type_list, $exclude_from_type_list, $under_to_type_list, $exclude_to_type_list) {
         $this->under_from_type_list=$under_from_type_list;
@@ -46,6 +46,7 @@ class SomeTypeBehavior extends AbstractTypeBehavior{
 
     public function action($reservation){
         $is_in_list = $this->is_in_list($reservation);
+        //var_dump($reservation, $is_in_list);exit;
         if(!$is_in_list){
             return false;
         }
@@ -63,4 +64,5 @@ function setup_new_behavior(){
 
 $my_new_type_behavior = setup_new_behavior();
 # API code
-$my_new_type_behavior->action(new Reservation('a', 'x'));
+$my_new_type_behavior->action(new Reservation('f', 'x'));
+var_dump($my_new_type_behavior);exit;
