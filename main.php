@@ -35,7 +35,19 @@ class AbstractTypeBehavior{
 
     public function is_in_list($reservation){
         if(!in_array($reservation->source_type, $this->under_from_type_list)){
-            echo 'from type in list, so no further action';
+            echo 'no from type in list, so no further action';
+            return false;
+        }
+        if(!in_array($reservation->reservation_type, $this->under_to_type_list)){
+            echo 'no to type in list, so no further action';
+            return false;
+        }
+        if(in_array($reservation->source_type, $this->exclude_from_type_list)){
+            echo 'from type in exclude list, so no further action';
+            return false;
+        }
+        if(in_array($reservation->reservation_type, $this->exclude_to_type_list)){
+            echo 'to type in exclude list, so no further action';
             return false;
         }
         return true;
@@ -64,5 +76,5 @@ function setup_new_behavior(){
 
 $my_new_type_behavior = setup_new_behavior();
 # API code
-$my_new_type_behavior->action(new Reservation('f', 'x'));
-var_dump($my_new_type_behavior);exit;
+$res = $my_new_type_behavior->action(new Reservation('d', 'f'));
+var_dump($res);exit;
